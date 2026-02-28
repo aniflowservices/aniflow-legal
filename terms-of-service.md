@@ -21,4 +21,4 @@ We reserve the right to terminate accounts that violate these terms.
 AniFlow is provided as-is without warranties of any kind.
 
 ## Contact
-[YOUR EMAIL HERE]
+aniflow.services@gmail.com
