@@ -16,4 +16,4 @@ Your data is used solely to provide the AniFlow service — storing your library
 You can delete your account and all associated data at any time from Settings → Delete Account.
 
 ## Contact
-For privacy concerns contact us at: [YOUR EMAIL HERE]
+For privacy concerns contact us at: aniflow.services@gmail.com
