@@ -72,6 +72,22 @@
     }
 
     /* ── Hero ── */
+
+    .hero-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px; /* controls spacing cleanly */
+      margin-bottom: 24px;
+    }
+    
+    .hero-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+    }
+        
     .hero {
       text-align: center;
       padding: 100px 20px 80px;
@@ -82,7 +98,6 @@
       width: 100px;
       height: 100px;
       border-radius: 24px;
-      margin-bottom: 24px;
       box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
     }
 
@@ -152,7 +167,7 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     /* ── Screenshots ── */
@@ -356,8 +371,10 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="badge">🚀 Now live on Google Play</div>
-    <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
+    <div class="hero-top">
+      <div class="badge">🚀 Now live on Google Play</div>
+      <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
+    </div>
     <h1>AniFlow</h1>
     <p>Track anime. Discover new shows. Never miss an episode.</p>
     <div>
