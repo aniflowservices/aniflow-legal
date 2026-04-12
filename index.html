@@ -3,145 +3,463 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AniFlow</title>
-
+  <title>AniFlow – Track & Discover Anime</title>
+  <meta name="description" content="AniFlow is a free anime tracking app for Android. Track episodes, get notifications, discover new shows, and sync with AniList." />
+  <meta property="og:title" content="AniFlow – Track & Discover Anime" />
+  <meta property="og:description" content="Track anime. Discover new shows. Never miss an episode." />
+  <meta property="og:image" content="https://aniflowservices.github.io/aniflow-legal/aniflow_logo_main.png" />
+  <meta property="og:url" content="https://aniflowservices.github.io/aniflow-legal/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       background: #0D0D0D;
       color: white;
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(13,13,13,0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #1a1a1a;
     }
 
-    h1 {
-      font-size: 52px;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
       color: #A855F7;
-      margin-bottom: 10px;
+      text-decoration: none;
     }
 
-    h2 {
-      margin-top: 40px;
-      color: #C084FC;
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
     }
 
-    p {
-      color: #ccc;
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
     }
 
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    /* ── Hero ── */
     .hero {
       text-align: center;
-      margin-bottom: 50px;
+      padding: 100px 20px 80px;
+      background: radial-gradient(ellipse at top, #1a0a2e 0%, #0D0D0D 70%);
+    }
+
+    .hero-logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+    }
+
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #A855F7, #6C47FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
     }
 
     .hero p {
-      font-size: 18px;
+      font-size: 20px;
+      color: #aaa;
+      max-width: 500px;
+      margin: 0 auto 40px;
     }
 
-    .buttons {
-      margin-top: 20px;
-    }
-
-    .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      text-decoration: none;
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #00C853;
       color: white;
-      background: #7C3AED;
-      transition: 0.2s;
+      text-decoration: none;
+      padding: 16px 32px;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0, 200, 83, 0.3);
     }
 
-    .buttons a:hover {
-      background: #6D28D9;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 200, 83, 0.4);
     }
 
-    .card {
-      background: #111;
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 20px;
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #A855F7;
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1px solid #A855F7;
+      margin-left: 12px;
+      transition: background 0.2s;
     }
 
-    .footer {
-      margin-top: 60px;
-      text-align: center;
+    .btn-secondary:hover {
+      background: rgba(168, 85, 247, 0.1);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      color: #C084FC;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
       font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    /* ── Screenshots ── */
+    .screenshots {
+      padding: 60px 20px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .screenshots h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .screenshots p {
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .screenshot-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 20px 40px;
+      scrollbar-width: none;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .screenshot-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .screenshot-scroll img {
+      height: 500px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid #1a1a1a;
+    }
+
+    /* ── Features ── */
+    .features {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section-label {
+      text-align: center;
+      color: #A855F7;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: #888;
+      margin-bottom: 48px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: #111;
+      border: 1px solid #1a1a1a;
+      border-radius: 16px;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: #A855F7;
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: #888;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Story ── */
+    .story {
+      padding: 60px 20px;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .story h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .story p {
+      color: #aaa;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    /* ── CTA ── */
+    .cta {
+      text-align: center;
+      padding: 80px 20px;
+      background: radial-gradient(ellipse at center, #1a0a2e 0%, #0D0D0D 70%);
+    }
+
+    .cta h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      color: #aaa;
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
       color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-copy {
+      color: #444;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 36px; }
+      nav { padding: 16px 20px; }
+      .btn-secondary { margin-left: 0; margin-top: 12px; }
+      .nav-links { gap: 16px; }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
 
-    <div class="hero">
-      <h1>AniFlow</h1>
-      <p>Track anime. Discover new shows. Never miss an episode.</p>
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="aniflow_logo_main.png" alt="AniFlow" />
+      AniFlow
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a></li>
+      <li><a href="mailto:aniflow.services@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
 
-      <div class="buttons">
-        <a href="privacy-policy">Privacy Policy</a>
-        <a href="terms-of-service">Terms of Service</a>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="badge">🚀 Now live on Google Play</div>
+    <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
+    <h1>AniFlow</h1>
+    <p>Track anime. Discover new shows. Never miss an episode.</p>
+    <div>
+      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">
+        ⬇️ Download on Google Play
+      </a>
+      <a class="btn-secondary" href="https://www.tiktok.com/@aniflow.app" target="_blank">
+        📱 Follow @aniflow.app
+      </a>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="screenshots" id="screenshots">
+    <p class="section-label">See it in action</p>
+    <h2 class="section-title">Built for anime fans</h2>
+    <p>Clean, fast, and actually useful.</p>
+    <div class="screenshot-scroll">
+      <!-- Add your actual screenshot files here -->
+      <!-- <img src="screenshot1.png" alt="Home screen" /> -->
+      <!-- <img src="screenshot2.png" alt="For You page" /> -->
+      <!-- <img src="screenshot3.png" alt="Library" /> -->
+      <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
+        Add screenshots here
+      </div>
+      <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
+        Add screenshots here
+      </div>
+      <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
+        Add screenshots here
       </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h2>🚀 Why I Built AniFlow</h2>
-      <p>
-        I’m 17, and I built AniFlow because I was tired of how messy anime tracking felt.
-        Switching between apps, forgetting episodes, losing track of shows — it just wasn’t it.
-      </p>
-      <p>
-        So I decided to build something myself. Clean. Fast. Actually useful.
-      </p>
+  <!-- Features -->
+  <section class="features" id="features">
+    <p class="section-label">Features</p>
+    <h2 class="section-title">Everything you need</h2>
+    <p class="section-sub">No clutter. No confusion. Just anime.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>For You Page</h3>
+        <p>TikTok-style recommendations personalised to what you've watched. Swipe to discover your next favourite anime.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📺</div>
+        <h3>Episode Tracking</h3>
+        <p>Track exactly where you are in every anime. Continue Watching shows your next episode instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>Episode Notifications</h3>
+        <p>Get notified the moment a new episode airs. Never fall behind on a currently airing show again.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>AniList Sync</h3>
+        <p>Already on AniList? Connect your account and sync your entire library both ways instantly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Smart Library</h3>
+        <p>Organise everything into folders — Currently Watching, Completed, Plan to Watch, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Airing Calendar</h3>
+        <p>See exactly what's airing and when. Plan your week around your favourite shows.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h2>🔥 What Makes AniFlow Different</h2>
-      <p>
-        AniFlow isn’t just another tracker. It’s built around how people actually watch anime.
-      </p>
-      <ul>
-        <li>📺 Smart episode tracking</li>
-        <li>⚡ Fast search with live suggestions</li>
-        <li>🎯 Personalized recommendations</li>
-        <li>🔔 Notifications so you never miss episodes</li>
-        <li>📚 Clean, organized library system</li>
-      </ul>
+  <!-- Story -->
+  <section class="story" id="story">
+    <p class="section-label">Our Story</p>
+    <h2>Built by a fan, for fans</h2>
+    <p>I'm 17, and I built AniFlow because I was tired of how messy anime tracking felt. Switching between apps, forgetting episodes, losing track of shows — it just wasn't it.</p>
+    <p>So I decided to build something myself. Clean. Fast. Actually useful. Every feature comes from a real problem I had as an anime fan.</p>
+    <p>AniFlow is just getting started — and I'm building it in public, one update at a time.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Ready to track smarter?</h2>
+    <p>Free to download. No account required to get started.</p>
+    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">
+      ⬇️ Download on Google Play
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="privacy-policy">Privacy Policy</a>
+      <a href="terms-of-service">Terms of Service</a>
+      <a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a>
+      <a href="mailto:aniflow.services@gmail.com">Contact</a>
+      <a href="https://paypal.me/aniflowservices" target="_blank">☕ Buy me a coffee</a>
     </div>
+    <p class="footer-copy">© 2026 AniFlow · Built independently by a 17-year-old anime fan</p>
+  </footer>
 
-    <div class="card">
-      <h2>💡 Built From Scratch</h2>
-      <p>
-        This wasn’t made by a big company or team. I learned everything while building it —
-        from Flutter to Firebase to deploying on Google Play.
-      </p>
-      <p>
-        Every feature comes from real problems I had myself.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>📈 What’s Next</h2>
-      <p>
-        AniFlow is just getting started. I’m constantly improving it based on feedback.
-      </p>
-      <p>
-        Future updates will bring better recommendations, more customization, and even smarter tracking.
-      </p>
-    </div>
-
-    <div class="footer">
-      © 2026 AniFlow • Built independently
-    </div>
-
-  </div>
 </body>
 </html>
