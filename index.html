@@ -13,17 +13,61 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       background: #0D0D0D;
       color: white;
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated background orbs ── */
+    .bg-orbs {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: orbFloat 12s ease-in-out infinite;
+    }
+
+    .orb1 {
+      width: 500px; height: 500px;
+      background: #7C3AED;
+      top: -100px; left: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb2 {
+      width: 400px; height: 400px;
+      background: #A855F7;
+      top: 40%; right: -150px;
+      animation-delay: -4s;
+      animation-duration: 15s;
+    }
+
+    .orb3 {
+      width: 300px; height: 300px;
+      background: #6C47FF;
+      bottom: 10%; left: 20%;
+      animation-delay: -8s;
+      animation-duration: 10s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 40px) scale(0.95); }
     }
 
     /* ── Nav ── */
@@ -32,11 +76,12 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 40px;
-      background: rgba(13,13,13,0.95);
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid #1a1a1a;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .nav-logo {
@@ -50,8 +95,7 @@
     }
 
     .nav-logo img {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       border-radius: 8px;
     }
 
@@ -68,48 +112,62 @@
       transition: color 0.2s;
     }
 
-    .nav-links a:hover {
-      color: white;
-    }
+    .nav-links a:hover { color: white; }
 
     /* ── Hero ── */
-
-    .hero-top {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px; /* controls spacing cleanly */
-      margin-bottom: 24px;
-    }
-    
-    .hero-logo {
-      width: 100px;
-      height: 100px;
-      border-radius: 24px;
-      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
-    }
-        
     .hero {
       text-align: center;
-      padding: 100px 20px 80px;
-      background: radial-gradient(ellipse at top, #1a0a2e 0%, #0D0D0D 70%);
+      padding: 120px 20px 100px;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-logo {
-      width: 100px;
-      height: 100px;
-      border-radius: 24px;
-      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+      width: 110px; height: 110px;
+      border-radius: 28px;
+      box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+      animation: logoFloat 4s ease-in-out infinite;
+      margin-bottom: 24px;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      color: #C084FC;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+      50% { box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.1); }
     }
 
     .hero h1 {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 800;
-      background: linear-gradient(135deg, #A855F7, #6C47FF);
+      background: linear-gradient(135deg, #A855F7, #6C47FF, #A855F7);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 16px;
+      animation: gradientShift 4s linear infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
     .hero p {
@@ -123,7 +181,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: #00C853;
+      background: linear-gradient(135deg, #00C853, #00E676);
       color: white;
       text-decoration: none;
       padding: 16px 32px;
@@ -135,8 +193,8 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(0, 200, 83, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 200, 83, 0.5);
     }
 
     .btn-secondary {
@@ -150,75 +208,37 @@
       border-radius: 14px;
       font-size: 15px;
       font-weight: 600;
-      border: 1px solid #A855F7;
+      border: 1px solid rgba(168, 85, 247, 0.5);
       margin-left: 12px;
-      transition: background 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
 
     .btn-secondary:hover {
       background: rgba(168, 85, 247, 0.1);
+      border-color: #A855F7;
     }
 
-    .badge {
-      display: inline-block;
-      background: rgba(168, 85, 247, 0.15);
-      color: #C084FC;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 0;
+    /* ── Scroll fade in ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    /* ── Screenshots ── */
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Screenshots carousel ── */
     .screenshots {
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
-      overflow: hidden;
-    }
-
-    .screenshots h2 {
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .screenshots p {
-      color: #888;
-      margin-bottom: 40px;
-    }
-
-    .screenshot-scroll {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      padding: 20px 40px;
-      scrollbar-width: none;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .screenshot-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .screenshot-scroll img {
-      height: 500px;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      border: 1px solid #1a1a1a;
-    }
-
-    /* ── Features ── */
-    .features {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
+      position: relative;
+      z-index: 1;
     }
 
     .section-label {
-      text-align: center;
       color: #A855F7;
       font-size: 13px;
       font-weight: 700;
@@ -227,9 +247,105 @@
       margin-bottom: 12px;
     }
 
+    .screenshots h2 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .screenshots > p {
+      color: #888;
+      margin-bottom: 48px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 24px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .carousel-track img {
+      height: 500px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.05);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .carousel-track img:hover {
+      transform: scale(1.02);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(168, 85, 247, 0.8);
+      border: none;
+      color: white;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .carousel-btn:hover {
+      background: #A855F7;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #333;
+      cursor: pointer;
+      transition: background 0.2s, width 0.3s;
+    }
+
+    .dot.active {
+      background: #A855F7;
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ── Features ── */
+    .features {
+      padding: 80px 20px;
+      max-width: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
     .section-title {
       text-align: center;
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
       margin-bottom: 8px;
     }
@@ -247,20 +363,37 @@
     }
 
     .feature-card {
-      background: #111;
-      border: 1px solid #1a1a1a;
-      border-radius: 16px;
-      padding: 28px;
-      transition: border-color 0.2s, transform 0.2s;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 32px;
+      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7C3AED, #A855F7);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .feature-card:hover {
-      border-color: #A855F7;
-      transform: translateY(-4px);
+      border-color: rgba(168, 85, 247, 0.4);
+      transform: translateY(-6px);
+      background: rgba(168, 85, 247, 0.05);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
     }
 
     .feature-icon {
-      font-size: 32px;
+      font-size: 36px;
       margin-bottom: 16px;
     }
 
@@ -271,21 +404,61 @@
     }
 
     .feature-card p {
-      color: #888;
+      color: #777;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      padding: 60px 20px;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px 20px;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #A855F7, #6C47FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 13px;
+      margin-top: 4px;
     }
 
     /* ── Story ── */
     .story {
-      padding: 60px 20px;
+      padding: 80px 20px;
       max-width: 700px;
       margin: auto;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .story h2 {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
       margin-bottom: 20px;
     }
@@ -294,17 +467,19 @@
       color: #aaa;
       font-size: 16px;
       margin-bottom: 16px;
+      line-height: 1.8;
     }
 
     /* ── CTA ── */
     .cta {
       text-align: center;
-      padding: 80px 20px;
-      background: radial-gradient(ellipse at center, #1a0a2e 0%, #0D0D0D 70%);
+      padding: 100px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .cta h2 {
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 800;
       margin-bottom: 16px;
     }
@@ -317,9 +492,11 @@
 
     /* ── Footer ── */
     footer {
-      border-top: 1px solid #1a1a1a;
+      border-top: 1px solid rgba(255,255,255,0.05);
       padding: 40px 20px;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-links {
@@ -331,30 +508,33 @@
     }
 
     .footer-links a {
-      color: #666;
+      color: #555;
       text-decoration: none;
       font-size: 14px;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover {
-      color: white;
-    }
+    .footer-links a:hover { color: white; }
 
-    .footer-copy {
-      color: #444;
-      font-size: 13px;
-    }
+    .footer-copy { color: #333; font-size: 13px; }
 
     @media (max-width: 600px) {
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: 40px; }
       nav { padding: 16px 20px; }
-      .btn-secondary { margin-left: 0; margin-top: 12px; }
+      .btn-secondary { margin-left: 0; margin-top: 12px; display: block; text-align: center; }
       .nav-links { gap: 16px; }
+      .stats-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
 
   <!-- Nav -->
   <nav>
@@ -372,10 +552,9 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-top">
-      <div class="badge">🚀 Now live on Google Play</div>
-      <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
-    </div>
+    <div class="badge">🚀 Now live on Google Play</div>
+    <br/><br/>
+    <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
     <h1>AniFlow</h1>
     <p>Track anime. Discover new shows. Never miss an episode.</p>
     <div>
@@ -388,60 +567,73 @@
     </div>
   </section>
 
-  <!-- Screenshots -->
-  <section class="screenshots" id="screenshots">
+  <!-- Screenshots carousel -->
+  <section class="screenshots fade-in" id="screenshots">
     <p class="section-label">See it in action</p>
-    <h2 class="section-title">Built for anime fans</h2>
+    <h2>Built for anime fans</h2>
     <p>Clean, fast, and actually useful.</p>
-    <div class="screenshot-scroll">
-      <!-- Add your actual screenshot files here -->
-      <img src="screenshot1.jpg" alt="Home screen" />
-      <img src="screenshot2.jpg" alt="For You page" />
-      <img src="screenshot3.jpg" alt="Library" />
-     <!-- <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
-        Add screenshots here
+    <div class="carousel-wrapper">
+      <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+      <div class="carousel-track" id="carouselTrack">
+        <img src="screenshot1.jpg" alt="Home screen" />
+        <img src="screenshot2.jpg" alt="For You page" />
+        <img src="screenshot3.jpg" alt="Library" />
       </div>
-      <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
-        Add screenshots here
+      <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats fade-in">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">Free</div>
+        <div class="stat-label">Always free to download</div>
       </div>
-      <div style="background:#111;border:1px solid #1a1a1a;border-radius:24px;width:220px;height:500px;display:flex;align-items:center;justify-content:center;color:#333;font-size:13px;">
-        Add screenshots here
-      </div> -->
+      <div class="stat-card">
+        <div class="stat-number">AniList</div>
+        <div class="stat-label">Two-way sync supported</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Android</div>
+        <div class="stat-label">Available on Google Play</div>
+      </div>
     </div>
   </section>
 
   <!-- Features -->
-  <section class="features" id="features">
-    <p class="section-label">Features</p>
+  <section class="features fade-in" id="features">
+    <p class="section-label" style="text-align:center;">Features</p>
     <h2 class="section-title">Everything you need</h2>
     <p class="section-sub">No clutter. No confusion. Just anime.</p>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">🎯</div>
         <h3>For You Page</h3>
         <p>TikTok-style recommendations personalised to what you've watched. Swipe to discover your next favourite anime.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">📺</div>
         <h3>Episode Tracking</h3>
         <p>Track exactly where you are in every anime. Continue Watching shows your next episode instantly.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">🔔</div>
         <h3>Episode Notifications</h3>
         <p>Get notified the moment a new episode airs. Never fall behind on a currently airing show again.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">🔗</div>
         <h3>AniList Sync</h3>
         <p>Already on AniList? Connect your account and sync your entire library both ways instantly.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">📚</div>
         <h3>Smart Library</h3>
         <p>Organise everything into folders — Currently Watching, Completed, Plan to Watch, and more.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">📅</div>
         <h3>Airing Calendar</h3>
         <p>See exactly what's airing and when. Plan your week around your favourite shows.</p>
@@ -450,18 +642,18 @@
   </section>
 
   <!-- Story -->
-  <section class="story" id="story">
+  <section class="story fade-in" id="story">
     <p class="section-label">Our Story</p>
     <h2>Built by a fan, for fans</h2>
-    <p>I'm 17, and I built AniFlow because I was tired of how messy anime tracking felt. Switching between apps, forgetting episodes, losing track of shows - it just wasn't it.</p>
+    <p>I'm 17, and I built AniFlow because I was tired of how messy anime tracking felt. Switching between apps, forgetting episodes, losing track of shows — it just wasn't it.</p>
     <p>So I decided to build something myself. Clean. Fast. Actually useful. Every feature comes from a real problem I had as an anime fan.</p>
-    <p>AniFlow is just getting started - and I'm building it in public, one update at a time.</p>
+    <p>AniFlow is just getting started — and I'm building it in public, one update at a time.</p>
   </section>
 
   <!-- CTA -->
-  <section class="cta">
+  <section class="cta fade-in">
     <h2>Ready to track smarter?</h2>
-    <p>Free to download.</p>
+    <p>Free to download. No account required to get started.</p>
     <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">
       ⬇️ Download on Google Play
     </a>
@@ -478,6 +670,49 @@
     </div>
     <p class="footer-copy">© 2026 AniFlow · Built independently by a 17-year-old anime fan</p>
   </footer>
+
+  <script>
+    // ── Scroll fade in ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── Carousel ──
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const images = track.querySelectorAll('img');
+    let current = 0;
+
+    // Create dots
+    images.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goTo(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      current = (index + images.length) % images.length;
+      const imgWidth = images[0].offsetWidth + 20;
+      track.style.transform = `translateX(-${current * imgWidth}px)`;
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function moveCarousel(dir) {
+      goTo(current + dir);
+    }
+
+    // Auto advance every 4 seconds
+    setInterval(() => moveCarousel(1), 4000);
+  </script>
 
 </body>
 </html>
