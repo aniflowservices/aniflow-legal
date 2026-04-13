@@ -6,12 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AniFlow – Track & Discover Anime</title>
   <meta name="description" content="AniFlow is a free anime tracking app for Android. Track episodes, get notifications, discover new shows, and sync with AniList." />
-  <meta property="og:title" content="AniFlow – Track & Discover Anime" />
-  <meta property="og:description" content="Track anime. Discover new shows. Never miss an episode." />
-  <meta property="og:image" content="https://aniflowservices.github.io/aniflow-legal/aniflow_logo_main.png" />
-  <meta property="og:url" content="https://aniflowservices.github.io/aniflow-legal/" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,16 +14,13 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
       background: #0D0D0D;
       color: white;
-      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* ── Animated background orbs ── */
+    /* Background */
     .bg-orbs {
       position: fixed;
-      top: 0; left: 0;
       width: 100%; height: 100%;
-      pointer-events: none;
       z-index: 0;
       overflow: hidden;
     }
@@ -38,683 +30,216 @@
       border-radius: 50%;
       filter: blur(80px);
       opacity: 0.15;
-      animation: orbFloat 12s ease-in-out infinite;
+      animation: float 12s infinite ease-in-out;
     }
 
-    .orb1 {
-      width: 500px; height: 500px;
-      background: #7C3AED;
-      top: -100px; left: -100px;
-      animation-delay: 0s;
+    .orb1 { width:500px; height:500px; background:#7C3AED; top:-100px; left:-100px; }
+    .orb2 { width:400px; height:400px; background:#A855F7; top:40%; right:-150px; }
+    .orb3 { width:300px; height:300px; background:#6C47FF; bottom:10%; left:20%; }
+
+    @keyframes float {
+      0%,100%{transform:translate(0,0);} 
+      50%{transform:translate(40px,-30px);} 
     }
 
-    .orb2 {
-      width: 400px; height: 400px;
-      background: #A855F7;
-      top: 40%; right: -150px;
-      animation-delay: -4s;
-      animation-duration: 15s;
-    }
-
-    .orb3 {
-      width: 300px; height: 300px;
-      background: #6C47FF;
-      bottom: 10%; left: 20%;
-      animation-delay: -8s;
-      animation-duration: 10s;
-    }
-
-    @keyframes orbFloat {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(40px, -30px) scale(1.05); }
-      66% { transform: translate(-20px, 40px) scale(0.95); }
-    }
-
-    /* ── Nav ── */
     nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 40px;
-      background: rgba(13,13,13,0.8);
-      backdrop-filter: blur(20px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 40px;
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(20px);
+      background:rgba(13,13,13,0.8);
+      z-index:100;
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 20px;
-      font-weight: 700;
-      color: #A855F7;
-      text-decoration: none;
-    }
+    .nav-logo { display:flex; align-items:center; gap:10px; color:#A855F7; text-decoration:none; font-weight:700; }
+    .nav-logo img { width:32px; }
 
-    .nav-logo img {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-    }
+    .nav-links { display:flex; gap:20px; }
+    .nav-links a { color:#aaa; text-decoration:none; }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
+    .hero { text-align:center; padding:140px 20px; position:relative; z-index:1; }
 
-    .nav-links a {
-      color: #aaa;
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: white; }
-
-    /* ── Hero ── */
-    .hero {
-      text-align: center;
-      padding: 120px 20px 100px;
-      position: relative;
-      z-index: 1;
-    }
+    .badge { margin-bottom:20px; color:#C084FC; }
 
     .hero-logo {
-      width: 110px; height: 110px;
-      border-radius: 28px;
-      box-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
-      animation: logoFloat 4s ease-in-out infinite;
-      margin-bottom: 24px;
+      width:110px;
+      margin-bottom:20px;
+      animation: floatLogo 4s infinite ease-in-out;
     }
 
-    @keyframes logoFloat {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+    @keyframes floatLogo {
+      0%,100%{transform:translateY(0);} 
+      50%{transform:translateY(-10px);} 
     }
 
-    .badge {
-      display: inline-block;
-      background: rgba(168, 85, 247, 0.15);
-      color: #C084FC;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      animation: badgePulse 3s ease-in-out infinite;
+    h1 {
+      font-size:64px;
+      background:linear-gradient(135deg,#A855F7,#6C47FF);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    @keyframes badgePulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
-      50% { box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.1); }
-    }
-
-    .hero h1 {
-      font-size: 64px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #A855F7, #6C47FF, #A855F7);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 16px;
-      animation: gradientShift 4s linear infinite;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
-    }
-
-    .hero p {
-      font-size: 20px;
-      color: #aaa;
-      max-width: 500px;
-      margin: 0 auto 40px;
-    }
+    p { color:#aaa; margin:20px auto; max-width:500px; }
 
     .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #00C853, #00E676);
-      color: white;
-      text-decoration: none;
-      padding: 16px 32px;
-      border-radius: 14px;
-      font-size: 17px;
-      font-weight: 700;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(0, 200, 83, 0.3);
+      background:#00C853;
+      padding:16px 30px;
+      border-radius:14px;
+      color:white;
+      text-decoration:none;
+      font-weight:bold;
+      display:inline-block;
+      transition:0.2s;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0, 200, 83, 0.5);
+    .btn-primary:hover { transform:translateY(-3px); }
+
+    .section { padding:80px 20px; text-align:center; position:relative; z-index:1; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:20px;
+      max-width:1000px;
+      margin:auto;
     }
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: #A855F7;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 600;
-      border: 1px solid rgba(168, 85, 247, 0.5);
-      margin-left: 12px;
-      transition: background 0.2s, border-color 0.2s;
+    .card {
+      background:rgba(255,255,255,0.03);
+      padding:28px;
+      border-radius:16px;
+      transition:0.3s;
     }
 
-    .btn-secondary:hover {
-      background: rgba(168, 85, 247, 0.1);
-      border-color: #A855F7;
+    .card:hover {
+      transform:translateY(-8px) scale(1.02);
+      background:rgba(168,85,247,0.05);
     }
 
-    /* ── Scroll fade in ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+    .screenshots img {
+      height:400px;
+      border-radius:20px;
+      margin:10px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.6);
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .fade { opacity:0; transform:translateY(30px); transition:0.6s; }
+    .fade.show { opacity:1; transform:translateY(0); }
 
-    /* ── Screenshots carousel ── */
-    .screenshots {
-      padding: 80px 20px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-label {
-      color: #A855F7;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-
-    .screenshots h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .screenshots > p {
-      color: #888;
-      margin-bottom: 48px;
-    }
-
-    .carousel-wrapper {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 24px;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      gap: 0;
-      padding: 0;
-    }
-
-    .carousel-track img {
-      height: 500px;
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.05);
-      flex-shrink: 0;
-      object-fit: contain;
-      transition: transform 0.3s;
-    }
-
-    .carousel-track img:hover {
-      transform: scale(1.02);
-    }
-
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(168, 85, 247, 0.8);
-      border: none;
-      color: white;
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-      z-index: 10;
-      transition: background 0.2s, transform 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .carousel-btn:hover {
-      background: #A855F7;
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .carousel-btn.prev { left: 10px; }
-    .carousel-btn.next { right: 10px; }
-
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 24px;
-    }
-
-    .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #333;
-      cursor: pointer;
-      transition: background 0.2s, width 0.3s;
-    }
-
-    .dot.active {
-      background: #A855F7;
-      width: 24px;
-      border-radius: 4px;
-    }
-
-    /* ── Features ── */
-    .features {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .section-sub {
-      text-align: center;
-      color: #888;
-      margin-bottom: 48px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
-      padding: 32px;
-      transition: border-color 0.3s, transform 0.3s, background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #7C3AED, #A855F7);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(168, 85, 247, 0.4);
-      transform: translateY(-6px);
-      background: rgba(168, 85, 247, 0.05);
-    }
-
-    .feature-card:hover::before {
-      opacity: 1;
-    }
-
-    .feature-icon {
-      font-size: 36px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .feature-card p {
-      color: #777;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* ── Stats ── */
-    .stats {
-      padding: 60px 20px;
-      max-width: 700px;
-      margin: auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      text-align: center;
-    }
-
-    .stat-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 28px 20px;
-    }
-
-    .stat-number {
-      font-size: 36px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #A855F7, #6C47FF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      color: #666;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-
-    /* ── Story ── */
-    .story {
-      padding: 80px 20px;
-      max-width: 700px;
-      margin: auto;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .story h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .story p {
-      color: #aaa;
-      font-size: 16px;
-      margin-bottom: 16px;
-      line-height: 1.8;
-    }
-
-    /* ── CTA ── */
-    .cta {
-      text-align: center;
-      padding: 100px 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .cta h2 {
-      font-size: 40px;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
-
-    .cta p {
-      color: #aaa;
-      margin-bottom: 32px;
-      font-size: 16px;
-    }
-
-    /* ── Footer ── */
     footer {
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
+      text-align:center;
+      padding:40px;
+      border-top:1px solid rgba(255,255,255,0.1);
     }
 
     .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
     }
 
-    .footer-links a {
-      color: #555;
-      text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
+    .footer-links a { color:#666; text-decoration:none; }
 
-    .footer-links a:hover { color: white; }
-
-    .footer-copy { color: #333; font-size: 13px; }
-
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 40px; }
-      nav { padding: 16px 20px; }
-      .btn-secondary { margin-left: 0; margin-top: 12px; display: block; text-align: center; }
-      .nav-links { gap: 16px; }
-      .stats-grid { grid-template-columns: 1fr; }
-    }
   </style>
 </head>
+
 <body>
 
-  <!-- Animated background orbs -->
-  <div class="bg-orbs">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="aniflow_logo_main.png"> AniFlow
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#story">Story</a>
+    <a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a>
+    <a href="mailto:aniflow.services@gmail.com">Contact</a>
   </div>
+</nav>
 
-  <!-- Nav -->
-  <nav>
-    <a class="nav-logo" href="#">
-      <img src="aniflow_logo_main.png" alt="AniFlow" />
-      AniFlow
-    </a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#story">Our Story</a></li>
-      <li><a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a></li>
-      <li><a href="mailto:aniflow.services@gmail.com">Contact</a></li>
-    </ul>
-  </nav>
+<section class="hero fade">
+  <div class="badge">🚀 Now live on Google Play</div>
+  <img src="aniflow_logo_main.png" class="hero-logo">
+  <h1>Never lose track of anime again</h1>
+  <p>The smartest way to track, discover, and share anime — all in one place.</p>
+  <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">Download on Google Play</a>
+</section>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="badge">🚀 Now live on Google Play</div>
-    <br/><br/>
-    <img src="aniflow_logo_main.png" alt="AniFlow Logo" class="hero-logo" />
-    <h1>AniFlow</h1>
-    <p>Track anime. Discover new shows. Never miss an episode.</p>
-    <div>
-      <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">
-        ⬇️ Download on Google Play
-      </a>
-      <a class="btn-secondary" href="https://www.tiktok.com/@aniflow.app" target="_blank">
-        📱 Follow @aniflow.app
-      </a>
-    </div>
-  </section>
+<section class="section screenshots fade">
+  <h2>See it in action</h2>
+  <img src="screenshot1.jpg">
+  <img src="screenshot2.jpg">
+  <img src="screenshot3.jpg">
+</section>
 
-  <!-- Screenshots carousel -->
-  <section class="screenshots fade-in" id="screenshots">
-    <p class="section-label">See it in action</p>
-    <h2>Built for anime fans</h2>
-    <p>Clean, fast, and actually useful.</p>
-    <div class="carousel-wrapper">
-      <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
-      <div class="carousel-track" id="carouselTrack">
-        <img src="screenshot1.jpg" alt="Home screen" />
-        <img src="screenshot2.jpg" alt="For You page" />
-        <img src="screenshot3.jpg" alt="Library" />
-      </div>
-      <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
-    </div>
-    <div class="carousel-dots" id="carouselDots"></div>
-  </section>
+<section class="section fade">
+  <h2>How it works</h2>
+  <div class="grid">
+    <div class="card"><h3>Add anime</h3><p>Import or search instantly</p></div>
+    <div class="card"><h3>Track episodes</h3><p>Pick up where you left off</p></div>
+    <div class="card"><h3>Discover</h3><p>Scroll your FYP</p></div>
+  </div>
+</section>
 
-  <!-- Stats -->
-  <section class="stats fade-in">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">Free</div>
-        <div class="stat-label">Always free to download</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">AniList</div>
-        <div class="stat-label">Two-way sync supported</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">Android</div>
-        <div class="stat-label">Available on Google Play</div>
-      </div>
-    </div>
-  </section>
+<section class="section fade" id="features">
+  <h2>Features</h2>
+  <div class="grid">
+    <div class="card"><h3>FYP</h3><p>TikTok-style discovery</p></div>
+    <div class="card"><h3>Tracking</h3><p>Never forget episodes</p></div>
+    <div class="card"><h3>Notifications</h3><p>Stay updated</p></div>
+    <div class="card"><h3>AniList Sync</h3><p>Sync your library</p></div>
+    <div class="card"><h3>Library</h3><p>Organise shows</p></div>
+    <div class="card"><h3>Calendar</h3><p>See what's airing</p></div>
+  </div>
+</section>
 
-  <!-- Features -->
-  <section class="features fade-in" id="features">
-    <p class="section-label" style="text-align:center;">Features</p>
-    <h2 class="section-title">Everything you need</h2>
-    <p class="section-sub">No clutter. No confusion. Just anime.</p>
-    <div class="features-grid">
-      <div class="feature-card fade-in">
-        <div class="feature-icon">🎯</div>
-        <h3>For You Page</h3>
-        <p>TikTok-style recommendations personalised to what you've watched. Swipe to discover your next favourite anime.</p>
-      </div>
-      <div class="feature-card fade-in">
-        <div class="feature-icon">📺</div>
-        <h3>Episode Tracking</h3>
-        <p>Track exactly where you are in every anime. Continue Watching shows your next episode instantly.</p>
-      </div>
-      <div class="feature-card fade-in">
-        <div class="feature-icon">🔔</div>
-        <h3>Episode Notifications</h3>
-        <p>Get notified the moment a new episode airs. Never fall behind on a currently airing show again.</p>
-      </div>
-      <div class="feature-card fade-in">
-        <div class="feature-icon">🔗</div>
-        <h3>AniList Sync</h3>
-        <p>Already on AniList? Connect your account and sync your entire library both ways instantly.</p>
-      </div>
-      <div class="feature-card fade-in">
-        <div class="feature-icon">📚</div>
-        <h3>Smart Library</h3>
-        <p>Organise everything into folders — Currently Watching, Completed, Plan to Watch, and more.</p>
-      </div>
-      <div class="feature-card fade-in">
-        <div class="feature-icon">📅</div>
-        <h3>Airing Calendar</h3>
-        <p>See exactly what's airing and when. Plan your week around your favourite shows.</p>
-      </div>
-    </div>
-  </section>
+<section class="section fade">
+  <h2>AniFlow Pro (Coming Soon)</h2>
+  <div class="grid">
+    <div class="card"><h3>Smart Notifications</h3><p>Perfect timing alerts</p></div>
+    <div class="card"><h3>Friends</h3><p>Share anime</p></div>
+    <div class="card"><h3>Better Recs</h3><p>Smarter discovery</p></div>
+  </div>
+</section>
 
-  <!-- Story -->
-  <section class="story fade-in" id="story">
-    <p class="section-label">Our Story</p>
-    <h2>Built by a fan, for fans</h2>
-    <p>I'm 17, and I built AniFlow because I was tired of how messy anime tracking felt. Switching between apps, forgetting episodes, losing track of shows - it just wasn't it.</p>
-    <p>So I decided to build something myself. Clean. Fast. Actually useful. Every feature comes from a real problem I had as an anime fan.</p>
-    <p>AniFlow is just getting started - and I'm building it in public, one update at a time.</p>
-  </section>
+<section class="section fade" id="story">
+  <h2>Built by a fan</h2>
+  <p>I'm 17, and I built AniFlow because anime tracking felt messy. Switching apps, forgetting episodes — it just wasn't it.</p>
+  <p>So I built something clean, fast, and actually useful.</p>
+  <p>AniFlow is just getting started.</p>
+</section>
 
-  <!-- CTA -->
-  <section class="cta fade-in">
-    <h2>Ready to track smarter?</h2>
-    <p>Free to download.</p>
-    <a class="btn-primary" href="https://play.google.com/store/apps/details?id=com.aniflow.aniflow" target="_blank">
-      ⬇️ Download on Google Play
-    </a>
-  </section>
+<footer>
+  <div class="footer-links">
+    <a href="privacy-policy">Privacy Policy</a>
+    <a href="terms-of-service">Terms of Service</a>
+    <a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a>
+    <a href="mailto:aniflow.services@gmail.com">Contact</a>
+    <a href="https://paypal.me/aniflowservices" target="_blank">☕ Buy me a coffee</a>
+  </div>
+  <p>© 2026 AniFlow</p>
+</footer>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-links">
-      <a href="privacy-policy">Privacy Policy</a>
-      <a href="terms-of-service">Terms of Service</a>
-      <a href="https://www.tiktok.com/@aniflow.app" target="_blank">TikTok</a>
-      <a href="mailto:aniflow.services@gmail.com">Contact</a>
-      <a href="https://paypal.me/aniflowservices" target="_blank">☕ Buy me a coffee</a>
-    </div>
-    <p class="footer-copy">© 2026 AniFlow · Built independently by a 17-year-old anime fan</p>
-  </footer>
-
-  <script>
-    // ── Scroll fade in ──
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // ── Carousel ──
-    const track = document.getElementById('carouselTrack');
-    const dotsContainer = document.getElementById('carouselDots');
-    const images = track.querySelectorAll('img');
-    let current = 0;
-
-    // Create dots
-    images.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.onclick = () => goTo(i);
-      dotsContainer.appendChild(dot);
+<script>
+  const faders = document.querySelectorAll('.fade');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) e.target.classList.add('show');
     });
-
-    function goTo(index) {
-      current = (index + images.length) % images.length;
-      const imgWidth = images[0].offsetWidth;
-      track.style.transform = `translateX(-${current * imgWidth}px)`;
-      document.querySelectorAll('.dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
-    }
-
-    function moveCarousel(dir) {
-      goTo(current + dir);
-    }
-
-    // Auto advance every 4 seconds
-    setInterval(() => moveCarousel(1), 4000);
-  </script>
+  });
+  faders.forEach(el => obs.observe(el));
+</script>
 
 </body>
 </html>
