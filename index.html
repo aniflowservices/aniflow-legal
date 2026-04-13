@@ -269,16 +269,18 @@
     .carousel-track {
       display: flex;
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      gap: 20px;
-      padding: 0 20px;
+      gap: 0;
+      padding: 0;
     }
 
     .carousel-track img {
       height: 500px;
+      width: 100%;
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
       border: 1px solid rgba(255,255,255,0.05);
       flex-shrink: 0;
+      object-fit: contain;
       transition: transform 0.3s;
     }
 
@@ -699,7 +701,7 @@
 
     function goTo(index) {
       current = (index + images.length) % images.length;
-      const imgWidth = images[0].offsetWidth + 20;
+      const imgWidth = images[0].offsetWidth;
       track.style.transform = `translateX(-${current * imgWidth}px)`;
       document.querySelectorAll('.dot').forEach((d, i) => {
         d.classList.toggle('active', i === current);
