@@ -2,27 +2,19 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Opening AniFlow...</title>
-  <meta http-equiv="refresh" content="0;url=aniflow://anime/PLACEHOLDER">
+  <title>AniFlow</title>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    if (id) {
-      window.location.href = 'aniflow://anime/' + id;
-    }
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (id) window.location.replace('aniflow://anime/' + id);
   </script>
 </head>
 <body style="background:#0a0a0a;color:white;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column;">
   <h2 style="color:#6C47FF;">AniFlow</h2>
-  <p>Opening anime in AniFlow...</p>
-  <p style="font-size:13px;opacity:0.5;">If nothing happens, make sure AniFlow is installed.</p>
-  <a id="link" href="#" style="margin-top:16px;color:#6C47FF;">Tap here to open</a>
+  <p>Opening...</p>
   <script>
-    const params2 = new URLSearchParams(window.location.search);
-    const id2 = params2.get('id');
-    if (id2) {
-      document.getElementById('link').href = 'aniflow://anime/' + id2;
-    }
+    const id2 = new URLSearchParams(window.location.search).get('id');
+    if (id2) document.getElementById('l').href = 'aniflow://anime/' + id2;
   </script>
+  <a id="l" href="#" style="color:#6C47FF;margin-top:12px;">Tap to open</a>
 </body>
 </html>
